@@ -3,8 +3,8 @@ import Config
 # Configure your database
 config :co_idea, CoIdea.Repo,
   username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  password: "changeme",
+  hostname: "postgres.db.samirghasemi.ir",
   database: "co_idea_dev",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
