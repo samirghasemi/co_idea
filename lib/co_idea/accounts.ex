@@ -34,6 +34,8 @@ defmodule CoIdea.Accounts do
       ** (Ecto.NoResultsError)
 
   """
+
+
   defp get_user_by_username(username) when is_binary(username)do
     case Repo.get_by(User, username: username) do
       nil ->
@@ -60,15 +62,15 @@ defmodule CoIdea.Accounts do
   def token_sign_in(username , password) do
     case user_password_auth(username , password) do
       {:ok , user} ->
-        Guardian.encode_and_sign(user)
+        Guardian.encode_and_s ign(user)
       _ ->
         {:error , :unauthorized}
     end
   end
 
-  def list_users do
-    Repo.all(from u in User , select: struct(u, [:id, :name, :username, :avatar]))
-  end
+#  def list_users do
+#    Repo.all(from u in User , select: struct(u, [:id, :name, :username, :avatar]))
+#  end
 
 
   @doc """
@@ -154,5 +156,101 @@ defmodule CoIdea.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  alias CoIdea.Accounts.Role
+
+  @doc """
+  Returns the list of roles.
+
+  ## Examples
+
+      iex> list_roles()
+      [%Role{}, ...]
+
+  """
+  def list_roles do
+    Repo.all(Role)
+  end
+
+  @doc """
+  Gets a single role.
+
+  Raises `Ecto.NoResultsError` if the Role does not exist.
+
+  ## Examples
+
+      iex> get_role!(123)
+      %Role{}
+
+      iex> get_role!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_role!(id), do: Repo.get!(Role, id)
+
+  @doc """
+  Creates a role.
+
+  ## Examples
+
+      iex> create_role(%{field: value})
+      {:ok, %Role{}}
+
+      iex> create_role(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_role(attrs \\ %{}) do
+    %Role{}
+    |> Role.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a role.
+
+  ## Examples
+
+      iex> update_role(role, %{field: new_value})
+      {:ok, %Role{}}
+
+      iex> update_role(role, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_role(%Role{} = role, attrs) do
+    role
+    |> Role.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a role.
+
+  ## Examples
+
+      iex> delete_role(role)
+      {:ok, %Role{}}
+
+      iex> delete_role(role)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_role(%Role{} = role) do
+    Repo.delete(role)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking role changes.
+
+  ## Examples
+
+      iex> change_role(role)
+      %Ecto.Changeset{data: %Role{}}
+
+  """
+  def change_role(%Role{} = role, attrs \\ %{}) do
+    Role.changeset(role, attrs)
   end
 end

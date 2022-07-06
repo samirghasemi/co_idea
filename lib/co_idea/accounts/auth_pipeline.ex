@@ -1,6 +1,6 @@
 defmodule CoIdea.Accounts.AuthPipeline do
     use Guardian.Plug.Pipeline,
-      otp_app: :testJson,
+      otp_app: :co_idea,
       error_handler: CoIdea.Accounts.ErrorHandler,
       module: CoIdea.Accounts.Guardian
 #

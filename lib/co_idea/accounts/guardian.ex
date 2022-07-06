@@ -1,5 +1,5 @@
 defmodule CoIdea.Accounts.Guardian do
-    use Guardian, otp_app: :testJson
+    use Guardian, otp_app: :co_idea
   
     alias CoIdea.Accounts
 

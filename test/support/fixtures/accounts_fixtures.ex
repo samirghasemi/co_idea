@@ -20,4 +20,20 @@ defmodule CoIdea.AccountsFixtures do
 
     user
   end
+
+  @doc """
+  Generate a role.
+  """
+  def role_fixture(attrs \\ %{}) do
+    {:ok, role} =
+      attrs
+      |> Enum.into(%{
+        description: "some description",
+        role_number: 42,
+        title: "some title"
+      })
+      |> CoIdea.Accounts.create_role()
+
+    role
+  end
 end

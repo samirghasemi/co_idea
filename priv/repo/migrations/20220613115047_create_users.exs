@@ -7,8 +7,13 @@ defmodule CoIdea.Repo.Migrations.CreateUsers do
       add :student_code, :string
       add :name, :string
       add :fname, :string
+      add :password, :string
+      add :avatar, :string
 
       timestamps()
     end
+
+    create unique_index(:users, [:national_code , :student_code])
+
   end
 end
